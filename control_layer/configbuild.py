@@ -15,7 +15,7 @@ def check_config():
 
 	# Extract all files within the folder
 	file_list = [file for file in os.listdir(".") if file.endswith(".json")]
-	file_list = [file for file in file_list if ".json" in file]
+	file_list = [file for file in file_list if "config" in file]
 	file_list = sorted(file_list)
 
 	if not file_list:
