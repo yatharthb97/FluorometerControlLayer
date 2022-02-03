@@ -64,7 +64,7 @@ md.collect(username_header=True)
 tmp_dir_name = md.file_descriptor()
 if tmp_dir_name == "":
 	tmp_dir_name = None
-ds = DataStore(parent_path=".", session_name=tmp_dir_name, force=(tmp_dir_name==""), test_dirs=False, verbose=True)
+ds = DataStore(parent_path=config["Save Directory"], session_name=tmp_dir_name, force=(tmp_dir_name==""), test_dirs=False, verbose=True)
 
 data_file_path = ds.new("data.dat")
 data_file = open(data_file_path, 'w', buffering = 1)
