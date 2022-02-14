@@ -58,7 +58,7 @@ md = MetaData()
 md.add("Fluorimetry", "fluori")
 md.set_header("fluorimeter")
 md.add_question("What are your samples?")
-conc_question = "What concentrations are you using?"
+conc_question = "What concentrations are you using? (comma seperated)"
 md.add_question(conc_question)
 md.collect(username_header=True)
 tmp_dir_name = md.file_descriptor()
@@ -70,16 +70,16 @@ data_file_path = ds.new("data.dat")
 data_file = open(data_file_path, 'w', buffering = 1)
 
 conc_values = [""]*no_samples
-#if conc_question in md.metadata: # User answered the question
-#	concs = resource.extract_conc(md.metadata[conc_question])
-#	for i in range(len(conc)):
-#		if i < no_samples:
-#			conc_values[i] = conc[i]
+if conc_question in md.metadata: # User answered the question
+	conc = resource.extract_conc(md.metadata[conc_question], no_samples)
+	conc_values = conc
+	md.metadata[conc_question] = conc_values #Update to conditioned list (#WARNING)
+
 
 
 
 #4. Construct GUI and declare update_fn
-gui = graph.GenerateGUI(sub_plots=no_samples)
+gui = graph.GenerateGUI(sub_plots=no_samples, maxlen=config["Plot Points"])
 
 graphed_points = 0  					# Number of points plotted
 updated_lines = 0   					# Number of lines read
