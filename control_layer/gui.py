@@ -7,19 +7,11 @@ from pyqtgraph.Qt import QtGui, QtCore
 import pyqtgraph as pg
 from collections import deque
 
-def GenerateGUI(**kwargs):
+def GenerateGUI(sub_plots=4, maxlen=100):
 	"""
 	Generates and returns a dictionary collection of Graphing GUI resources.
 	Only generates individual plots as of now.
 	"""
-
-	scroll_range = 20
-	no_samples = 4
-	if 'samples' in kwargs:
-		no_samples = kwargs['samples']
-	if 'range' in kwargs:
-		scroll_range = kwargs['range']
-
 
 	this_title = "Fluorimeter Reading Display"
 	x_label = "X axis →"
@@ -48,13 +40,13 @@ def GenerateGUI(**kwargs):
 	data = []
 	times = []
 
-	for pt in range(1, no_samples+1):
+	for pt in range(1, sub_plots+1):
 		canvas = window.addPlot(title=f"Sample - {pt}")
 		canvases.append(canvas)
 		if pt % 2 == 0:
 			window.nextRow()
-		datum = deque(maxlen=scroll_range)
-		time = deque(maxlen=scroll_range) 
+		datum = deque(maxlen=maxlen)
+		time = deque(maxlen=maxlen) 
 		datum.append(0.0)
 		time.append(0.0)
 
@@ -66,8 +58,6 @@ def GenerateGUI(**kwargs):
 		curves.append(curve)
 		data.append(datum)
 		times.append(time)
-
-
-
+ 
 
 	return {"app": app, "window": window, "canvases": canvases, "curves": curves, "data" : data, "time": times}
