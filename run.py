@@ -21,14 +21,20 @@ import resource
 from  metadata.metadata import MetaData
 from datastore.data_store import DataStore
 
+#resource.create_shortcut()
+#exit()
+
 #0. Declare resources (globals)
-config = None                    # Configuration loaded as dictionary
-stop_flag = False				 # Indicates all the threads that the measurement has ended
-measurement_ended = False        # The measurement has actually ended
-print_data = True				 # Flag that indicates whether data is printed on the screen
-no_samples = 4					 # Number of samples being processed
-decode_errors = 0 				 # Decoding Errors encountered during data reading
-header_text_lines = 7			 # Number of lines to wait before processing the data
+config = None                    # Configuration loaded as dictionary.
+stop_flag = False				 # Indicates all the threads that the measurement has ended.
+measurement_ended = False        # The measurement has actually ended.
+print_data = True				 # Flag that indicates whether data is printed on the screen.
+no_samples = 4					 # Number of samples being processed.
+decode_errors = 0 				 # Decoding Errors encountered during data reading.
+header_text_lines = 7			 # Number of lines to wait before processing the data.
+device_info_char = '#'			 # Character that precides `Device State Info` (Line that cannot be processed for plotting).
+device_state_lines = 0			 # Count of `Device State Info` lines.
+
 
 #0. Print Header
 resource.header()
@@ -90,7 +96,7 @@ line_change = False                      # New line was detected - one cycle is 
 def graph_title_gen(sample_no):
 	global conc_values, updated_lines, header_text_lines
 	conc_str = f"[{conc_values[sample_no]}]"*(conc_values[sample_no] != "")
-	title = f"Sample: {sample_no} {conc_str}   |||     Update: {updated_lines-header_text_lines}"
+	title = f"Sample: {sample_no+1} {conc_str}   |||     Update: {updated_lines-header_text_lines}"
 	return title
 
 def numeric_extract(string, time):
@@ -173,12 +179,21 @@ def update_fn():
 			global start_time
 			duration = time_now - start_time
 		
+			# Case 1 : Header lines - Only print, don't process
 			# Handle header explicitly & return
 			if updated_lines < header_text_lines:
 				print(line, end='')
 				if '\n' in line:
 					updated_lines = updated_lines + 1
 				return
+
+			# Case 2 : Device info (sent by device) : Only print, don't process
+			if line.startswith(device_info_char):
+				print(line) #Print to screen
+				if '\n' in line:
+					device_state_lines = device_state_lines + 1
+				return
+
 
 			# 0. create lists for values and time
 			list_values = numeric_extract(line, duration)
@@ -262,7 +277,7 @@ port.close()
 data_file.close()
 
 # Collect additional meta-data
-md.add("Data Points", updated_lines)
+md.add("Data Points", updated_lines-header_text_lines)
 md.add("Errors", decode_errors)
 md.add("Graphed Points", graphed_points)
 if config["Export Config to MetaData"]:

@@ -35,7 +35,7 @@ default_config = {
 					"Header Lines" : 7,
 					"Data Seperator" : '\t',
 					"Print Data" : bool(True),
-					"Export Config to MetaData" : bool(True)
+					"Export Config to MetaData" : bool(True),
 					"Plot Points" : 200
 				 }
 

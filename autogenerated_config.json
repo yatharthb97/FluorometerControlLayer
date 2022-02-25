@@ -6,5 +6,6 @@
     "Header Lines": 7,
     "Data Seperator": "\t",
     "Print Data": true,
-    "Export Config to MetaData": false
+    "Export Config to MetaData": false,
+    "Plot Points": 200
 }
