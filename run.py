@@ -21,8 +21,8 @@ import resource
 from  metadata.metadata import MetaData
 from datastore.data_store import DataStore
 
-#resource.create_shortcut()
-#exit()
+resource.create_shortcut()
+exit(0)
 
 #0. Declare resources (globals)
 config = None                    # Configuration loaded as dictionary.
@@ -58,6 +58,10 @@ except (SerialException, FileNotFoundError) as e:
 	for port in all_ports:
 	    print(f"   → {port}")
 	sys.exit(1)
+
+
+# Create and acquire sleep screen lock - Will be released automatixally on exit.
+sleep_screen_lock = resource.WakeLock() 
 
 #3. Metadata & Datastore
 md = MetaData()
