@@ -78,23 +78,42 @@ def create_shortcut():
 		shortcut.save()
 
 
+import platform
 class WakeLock:
-	from wakepy import set_keepawake, unset_keepawake
 	"""
 	RAII wrapper around `wakepy` API. Creation of this objects instructs 
 	the Operating system not to put itaself to sleep while the process runs.
 	"""
 
-	def __init__(keep_screen_awake=False):
+	ES_CONTINUOUS = 0x80000000
+	ES_SYSTEM_REQUIRED = 0x00000001
+	ES_DISPLAY_REQUIRED = 0x00000002
+
+	def __init__(self, keep_screen_awake=False):
 		"""
 		Constructor - create and aquire lock.
 		"""
-		set_keepawake(keep_screen_awake=keep_screen_awake)
-		print("[WakeLock] Sleep prevent lock has been set.")
+		self.sys = platform.system()
+		if self.sys == 'Windows':
+			import ctypes
+			ctypes.windll.kernel32.SetThreadExecutionState(
+			    self.ES_CONTINUOUS | \
+			    self.ES_SYSTEM_REQUIRED | \
+			    self.ES_DISPLAY_REQUIRED )
+		else:
+			from wakepy import set_keepawake
+			set_keepawake(keep_screen_awake=keep_screen_awake)
+		print(f"[WakeLock] Sleep prevent lock has been set on plateform: {self.sys}.")
 
-	def __del__():
+	def __del__(self):
 		"""
 		Destructor - Release lock.
 		"""
+		if self.sys == 'Windows':
+			import ctypes
+			ctypes.windll.kernel32.SetThreadExecutionState(
+		    self.ES_CONTINUOUS)
+		else:
+			from wakepy import unset_keepawake
+			unset_keepawake()
 		print("[WakeLock] Sleep prevent lock has been unset.")
-		unset_keepawake()
