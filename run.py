@@ -45,6 +45,8 @@ config = configbuild.config_load_operations()
 header_text_lines = config["Header Lines"]
 sep = config["Data Seperator"]
 print_data = config["Print Data"]
+no_samples = config["No samples"]
+
 #2. Open Serial Port
 all_ports = list(port_list.comports()) # List of all active ports
 try: #Opening the port
@@ -170,13 +172,9 @@ def update_fn():
 			updated_lines = updated_lines + 1
 			line_change = False
 		
-		# Print Measurement Cycle header
-		if sample_id == 0 and updated_lines >= header_text_lines and print_data:
-			print(f"○ Measurement cycle - {updated_lines - header_text_lines}")
-
 		try:	
 			line = byte_array.decode('ascii')
-			global start_time
+			global start_time, device_state_lines
 			duration = time_now - start_time
 		
 			# Case 1 : Header lines - Only print, don't process
@@ -193,6 +191,10 @@ def update_fn():
 				if '\n' in line:
 					device_state_lines = device_state_lines + 1
 				return
+
+			# Print Measurement Cycle header
+			if sample_id == 0 and updated_lines >= header_text_lines and print_data:
+				print(f"○ Measurement cycle - {updated_lines - header_text_lines}")
 
 
 			# 0. create lists for values and time
