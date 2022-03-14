@@ -1,11 +1,12 @@
 {
-    "Port": "COM7",
+    "Port": "COM8",
     "Baud": 9600,
     "Sampling Delay ms": 100,
     "Save Directory": "./exclude/",
-    "Header Lines": 7,
+    "Header Lines": 0,
     "Data Seperator": "\t",
     "Print Data": true,
     "Export Config to MetaData": false,
-    "Plot Points": 200
+    "Plot Points": 200,
+    "No samples": 8
 }

@@ -44,10 +44,17 @@ def GenerateGUI(sub_plots=4, maxlen=100):
 	data = []
 	times = []
 
+	def table_condition(pt, total_plots):
+
+		#if total_plots == 4:
+		#	return pt % 2 == 0
+		#else:
+		return (pt == total_plots/2)
+
 	for pt in range(1, sub_plots+1):
 		canvas = window.addPlot(title=f"Sample - {pt}")
 		canvases.append(canvas)
-		if pt % 2 == 0:
+		if table_condition(pt, sub_plots):
 			window.nextRow()
 		datum = deque(maxlen=maxlen)
 		time = deque(maxlen=maxlen) 

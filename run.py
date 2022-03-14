@@ -21,8 +21,8 @@ import resource
 from  metadata.metadata import MetaData
 from datastore.data_store import DataStore
 
-resource.create_shortcut()
-exit(0)
+#resource.create_shortcut()
+#exit(0)
 
 #0. Declare resources (globals)
 config = None                    # Configuration loaded as dictionary.
