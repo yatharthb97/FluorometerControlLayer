@@ -7,6 +7,9 @@ from pyqtgraph.Qt import QtGui, QtCore
 import pyqtgraph as pg
 from collections import deque
 
+
+import os
+
 def GenerateGUI(sub_plots=4, maxlen=100):
 	"""
 	Generates and returns a dictionary collection of Graphing GUI resources.
@@ -27,7 +30,8 @@ def GenerateGUI(sub_plots=4, maxlen=100):
 	window.setWindowTitle(this_title)
 
 	# icon
-	icon = QtGui.QIcon("icon.png")
+	icon_path = os.path.join(".", "control_layer", "icon.png")
+	icon = QtGui.QIcon(str(icon_path))
 	window.setWindowIcon(icon)
 	
 	# Enable antialiasing for prettier plots
