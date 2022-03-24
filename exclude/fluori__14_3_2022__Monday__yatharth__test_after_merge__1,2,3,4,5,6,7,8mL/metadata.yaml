@@ -1,0 +1,29 @@
+metadata:
+    What are your samples?: test_after_merge
+    What concentrations are you using? (comma seperated):
+    - '1'
+    - '2'
+    - '3'
+    - '4'
+    - '5'
+    - '6'
+    - '7'
+    - 8mL
+    date: 14-3-2022
+    descriptor-1: fluori
+    descriptor-2: '2022-03-14 11:32:10.728947'
+    descriptor-3: '2022-03-14 11:35:10.437326'
+    descriptor-4: 179.70844699999998
+    descriptor-5: 0
+    descriptor-6: 0
+    descriptor-7: 8
+    user: yatharth
+    weekday: Monday
+time:
+    day: 14
+    hour: 11
+    min: 31
+    month: 3
+    rep: '2022-03-14 11:31:34.213899'
+    weekday: Monday
+    year: 2022

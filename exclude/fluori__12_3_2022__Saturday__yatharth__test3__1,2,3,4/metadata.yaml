@@ -1,0 +1,25 @@
+metadata:
+    What are your samples?: test3
+    What concentrations are you using? (comma seperated):
+    - '1'
+    - '2'
+    - '3'
+    - '4'
+    date: 12-3-2022
+    descriptor-1: fluori
+    descriptor-2: '2022-03-12 18:19:48.322733'
+    descriptor-3: '2022-03-12 18:33:43.476520'
+    descriptor-4: 835.1537884999999
+    descriptor-5: 3
+    descriptor-6: 0
+    descriptor-7: 16
+    user: yatharth
+    weekday: Saturday
+time:
+    day: 12
+    hour: 18
+    min: 19
+    month: 3
+    rep: '2022-03-12 18:19:30.823737'
+    weekday: Saturday
+    year: 2022

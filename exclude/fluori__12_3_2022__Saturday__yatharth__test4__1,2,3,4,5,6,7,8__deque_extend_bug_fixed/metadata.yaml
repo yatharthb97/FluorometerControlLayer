@@ -1,0 +1,30 @@
+metadata:
+    What are your samples?: test4
+    What concentrations are you using? (comma seperated):
+    - '1'
+    - '2'
+    - '3'
+    - '4'
+    - '5'
+    - '6'
+    - '7'
+    - '8'
+    date: 12-3-2022
+    descriptor-1: fluori
+    descriptor-2: deque_extend_bug-fixed
+    descriptor-3: '2022-03-12 18:40:57.989965'
+    descriptor-4: '2022-03-12 18:41:41.308853'
+    descriptor-5: 43.318974
+    descriptor-6: 0
+    descriptor-7: 0
+    descriptor-8: 0
+    user: yatharth
+    weekday: Saturday
+time:
+    day: 12
+    hour: 18
+    min: 40
+    month: 3
+    rep: '2022-03-12 18:40:35.861382'
+    weekday: Saturday
+    year: 2022
